@@ -5,6 +5,7 @@ import mouse
 from mouse import MIDDLE
 
 from commands import COMMANDS, AvailableCommands
+from qr import generate_qr_code
 from ws_client import WsClient
 
 ws_client = WsClient("localhost", 5121)
@@ -60,6 +61,8 @@ async def ping():
 async def started():
     print("Started")
     ID = str(uuid.uuid4())
+    qr_terminal = generate_qr_code(ID)
+    print(qr_terminal)
     await ws_client.send(AvailableCommands.AVAILABLE.instance(ID))
 
 ws_client.start()
